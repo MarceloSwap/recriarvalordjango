@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,13 +21,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ne1q#mlau!5&u^_ww%yrt2r!a!7nqy+zgwn8bf-ro%1c=&=tr%'
+TOKEN_CSRF = os.getenv('TOKEN_CSRF')
+if TOKEN_CSRF:
+    SECRET_KEY = TOKEN_CSRF
+    CSRF_TRUSTED_ORIGINS = ["https://recriarvalordjango-production.up.railway.app/"]
+else:
+    SECRET_KEY = 'django-insecure-ne1q#mlau!5&u^_ww%yrt2r!a!7nqy+zgwn8bf-ro%1c=&=tr%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # mudar pra False o Debug pra colocar em produção
 DEBUG = True
 
-ALLOWED_HOSTS = ["recriarvalordjango-production.up.railway.app", "localhost", "127.0.0.1"]
+ALLOWED_HOSTS = ["https://recriarvalordjango-production.up.railway.app/", "localhost", "127.0.0.1"]
 
 
 # Application definition
@@ -87,7 +93,7 @@ DATABASES = {
 }
 
 import dj_database_url
-import os
+
 DATABASE_URL = os.getenv("DATABASE_URL")
 if DATABASE_URL:
     DATABASES = {
