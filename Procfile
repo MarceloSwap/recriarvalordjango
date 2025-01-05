@@ -1,1 +1,1 @@
-web: pythoh manage.py migrate && gunicorn recriarvalor.wsgi --log-file -
+web: python manage.py migrate && gunicorn recriarvalor.wsgi --log-file -
