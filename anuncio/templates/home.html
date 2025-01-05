@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %}
+HomePage
+{% endblock %}
+
+{% block head %}
+<style>
+    #id_email{
+    width: 100%;
+    color: #000000;
+    padding: 5px 5px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<header class="min-h-screen bg-black bg-opacity-75 bg-blend-overlay showcase border-gray-600 border-b-8 flex justify-center items-center bg-no-repeat bg-cover bg-center"
+        style="background-image: url('{% static 'images/bg.jpg' %}');">
+    <div class="z-10 h-full py-32 md:py-0 text-gray-100 text-center flex items-center flex-col">
+
+        <h1 class="font-semibold text-4xl md:text-5xl w-10/12 md:w-3/4 text-center">
+            Conecta doadores de resíduos a outros interessados em reaproveitá-los para gerar valor social e econômico.
+        </h1>
+        <h3 class="text-xl md:text-xl py-5">
+            Seu lixo pode ser matéria-prima para outros.
+        </h3>
+        <h4 class="text-sm md:text-lg pb-3">
+            Quer começar? Coloque seu e-mail abaixo para acessar.
+        </h4>
+
+        <div class="w-full flex justify-center">
+            <div class="flex justify-center items-center w-1/12 md:w-8/12">
+                <form method="post" class="w-6/12 justify-center">
+                    {% csrf_token %}
+                    <div class="flex flex-grow items-stretch">
+                        {{ form }}
+                        <button class="bg-red-600 font-medium md:font-normal flex justify-center items-center py-2 px-3 md:px-0 rounded-br-sm rounded-tr-sm md:text-2xl"
+                                type="submit">
+                            <span>
+                                Acessar
+                            </span>
+                            <ion-icon name="chevron-forward-outline" class="text-2xl"></ion-icon>
+                        </button>
+                    </div>
+                </form>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</header>
+
+<footer class="relative py-12 text-black overflow-hidden">
+    <!-- Fundo animado de arco-íris -->
+    <div class="absolute inset-0 bg-gradient-to-r from-red-500 via-yellow-500 to-blue-500 bg-animate"></div>
+    <!-- Conteúdo do footer -->
+    <div class="relative z-10 container mx-auto">
+        <ul class="flex justify-between items-center">
+            <li>&copy; 2024 ReCriarValor</li>
+            <li class="flex items-center">
+
+                <a href="https://www.python.org/" class="flex items-center mx-2">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"
+                         alt="Python" class="h-6 w-6">
+                    <span class="ml-1">Python</span>
+                </a>
+                <a href="https://www.djangoproject.com/" class="flex items-center mx-2">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg" alt="Django"
+                         class="h-6 w-6">
+                    <span class="ml-1">Django</span>
+                </a>
+                <a href="https://www.sqlite.org/" class="flex items-center mx-2">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original.svg"
+                         alt="SQLite" class="h-6 w-6">
+                    <span class="ml-1">SQLite</span>
+                </a>
+                <a href="https://tailwindcss.com/" class="flex items-center mx-2">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg"
+                         alt="Tailwind CSS" class="h-6 w-6">
+                    <span class="ml-1">Tailwind CSS</span>
+                </a>
+                <a href="https://getbootstrap.com/" class="flex items-center mx-2">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-plain.svg"
+                         alt="Bootstrap" class="h-6 w-6">
+                    <span class="ml-1">Bootstrap</span>
+                </a>
+                <a href="https://developer.mozilla.org/en-US/docs/Web/CSS" class="flex items-center mx-2">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3"
+                         class="h-6 w-6">
+                    <span class="ml-1">CSS3</span>
+                </a>
+
+            </li>
+        </ul>
+    </div>
+</footer>
+
+
+{% endblock %}

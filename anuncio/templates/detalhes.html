@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+Detalhes Detalhes
+{% endblock %}
+
+{% block content %}
+<main class="bg-primary_black min-h-screen w-full">
+    <!-- Hero Section -->
+    <section class="py-12 bg-black bg-opacity-75 bg-blend-overlay flex items-end bg-cover" style="background-image: url('{{ object.thumb.url }}');">
+        <div class="container mx-auto px-6">
+            <h2 class="text-5xl md:text-6xl font-bold text-white mb-4">
+                {{ object.titulo }}
+            </h2>
+            <p class="text-white text-lg md:w-1/2 mb-6">
+                {{ object.descricao|slice:":50" }}...
+            </p>
+        </div>
+    </section>
+
+    <!-- Description Section -->
+    <section class="bg-primary_black py-10">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row items-start">
+            <div class="w-full md:w-1/2 hover:scale-105">
+                <img src="{{ object.thumb.url }}" alt="{{ object.titulo }}" class="rounded-lg shadow-lg mb-6 md:mb-0">
+            </div>
+            <div class="w-full md:w-1/2 md:pl-10">
+                <h2 class="text-gray-200 text-3xl font-medium mb-4">Descrição</h2>
+                <p class="text-gray-100 text-lg leading-relaxed mb-4">
+                    {{ object.descricao }}
+                </p>
+                <p class="text-gray-400 text-sm">Visualizações: <span class="text-gray-200">{{ object.visualizacoes }}</span></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Related Section -->
+    <section class="bg-primary_black py-10">
+        <div class="container mx-auto px-6">
+            <h2 class="text-gray-200 text-2xl font-medium mb-6">Relacionados</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {% for anuncio in anuncios_relacionados %}
+                <div class="bg-gray-800 rounded-lg shadow-md overflow-hidden hover:scale-105">
+                    <a href="{% url 'anuncio:detalhes' anuncio.pk %}">
+                        <img src="{{ anuncio.thumb.url }}" alt="{{ anuncio.titulo }}" class="w-full h-48 object-cover">
+                    </a>
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold text-gray-200 mb-2">{{ anuncio.titulo }}</h3>
+                        <p class="text-gray-400 text-sm">
+                            <a href="{% url 'anuncio:detalhes' anuncio.pk %}" class="text-blue-500 hover:underline">
+                                Ver mais detalhes
+                            </a>
+                        </p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="relative py-12 text-black overflow-hidden">
+    <!-- Fundo animado de arco-íris -->
+    <div class="absolute inset-0 bg-gradient-to-r from-red-500 via-yellow-500 to-blue-500 bg-animate"></div>
+    <!-- Conteúdo do footer -->
+    <div class="relative z-10 container mx-auto">
+        <ul class="flex justify-between items-center">
+            <li>&copy; 2024 ReCriarValor</li>
+            <li class="flex items-center">
+
+                <a href="https://www.python.org/" class="flex items-center mx-2">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" class="h-6 w-6">
+                    <span class="ml-1">Python</span>
+                </a>
+                <a href="https://www.djangoproject.com/" class="flex items-center mx-2">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg" alt="Django" class="h-6 w-6">
+                    <span class="ml-1">Django</span>
+                </a>
+                <a href="https://www.sqlite.org/" class="flex items-center mx-2">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original.svg" alt="SQLite" class="h-6 w-6">
+                    <span class="ml-1">SQLite</span>
+                </a>
+                <a href="https://tailwindcss.com/" class="flex items-center mx-2">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" alt="Tailwind CSS" class="h-6 w-6">
+                    <span class="ml-1">Tailwind CSS</span>
+                </a>
+                <a href="https://getbootstrap.com/" class="flex items-center mx-2">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-plain.svg" alt="Bootstrap" class="h-6 w-6">
+                    <span class="ml-1">Bootstrap</span>
+                </a>
+                <a href="https://developer.mozilla.org/en-US/docs/Web/CSS" class="flex items-center mx-2">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3" class="h-6 w-6">
+                    <span class="ml-1">CSS3</span>
+                </a>
+
+            </li>
+        </ul>
+    </div>
+</footer>
+{% endblock %}

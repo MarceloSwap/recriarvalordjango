@@ -1,0 +1,278 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %}
+Home Anuncios
+{% endblock %}
+
+
+{% block head %}
+<style>
+    $itemGrow: 1.2;
+$duration: 250ms;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: #000;
+}
+
+h1 {
+  font-family: Arial;
+  color: red;
+  text-align: center;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(3,100%);
+  overflow:hidden;
+  scroll-behavior: smooth;
+
+  section {
+    width: 100%;
+    position: relative;
+    margin: 20px 0;
+
+    .item {
+      padding: 0 2px;
+      transition: $duration all;
+
+      &:hover {
+        margin: 0 40px;
+        transform: scale(1.2);
+      }
+
+    }
+
+    a {
+      /* position: absolute; */
+      color: #fff;
+      text-decoration: none;
+      font-size: 6em;
+      background:rgb(0,0,0);
+      text-align: center;
+      z-index: 1;
+
+    }
+
+    &>a:first-child {
+      position: absolute;
+        left:0;
+        background: linear-gradient(-90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%);
+      }
+      &>a:last-child {
+        position: absolute;
+        right: 0;
+        background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%);
+      }
+  }
+}
+
+// Remove the arrow for Mobile
+@media only screen and (max-width: 600px) {
+  a.arrow__btn {
+    display:none;
+  }
+}
+
+
+
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+<main class='bg-primary_black min-h-screen w-full'>
+    <section class="min-h-40 bg-no-repeat bg-cover flex items-end"
+             style="background-image: url('{% static 'images/bg.jpg' %}');">
+        <div class="container mx-auto px-6 py-16 bg-gradient-to-t from-black/70 via-black/40 to-transparent rounded-md">
+            <h2 class="text-4xl md:text-4xl font-bold text-white mb-6">
+                Conecta doadores de resíduos a outros interessados em reaproveitá-los para gerar valor social e econômico.
+            </h2>
+            <p class="text-white text-lg md:w-1/2 mb-6">
+                Seu lixo pode ser matéria-prima para outros.
+            </p>
+
+        </div>
+    </section>
+
+    <section id="catalogo" class="bg-gray-100 py-12">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-semibold text-gray-800 mb-8">Catálogo de Anúncios</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {% for anuncio in object_list %}
+                <div class="bg-white shadow-md rounded-lg overflow-hidden hover:scale-105">
+                    <a href="{% url 'anuncio:detalhes' anuncio.pk %}">
+                        <img src="{{ anuncio.thumb.url }}" alt="{{ anuncio.titulo }}" class="w-full h-48 object-cover">
+                    </a>
+                    <div class="p-4">
+                        <a href="{% url 'anuncio:detalhes' anuncio.pk %}">
+                            <h3 class="text-xl font-bold text-gray-800 hover:text-blue-500">{{ anuncio.titulo }}</h3>
+                        </a>
+                        <p class="text-gray-600 text-sm mt-2">{{ anuncio.descricao|truncatewords:15 }}</p>
+                        <p class="text-gray-500 text-xs mt-4">
+                            <ion-icon name="location-outline" class="text-blue-500"></ion-icon>
+                            {{ anuncio.localizacao }}
+                        </p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section class="bg-gray-100 py-12">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-semibold text-gray-800 mb-6">+ Recentes</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                 {% for anuncio in lista_anuncios_recentes %}
+                <div class="bg-gray-800 rounded-lg shadow-md overflow-hidden hover:scale-105">
+                    <a href="{% url 'anuncio:detalhes' anuncio.pk %}">
+                        <img src="{{ anuncio.thumb.url }}" alt="{{ anuncio.titulo }}" class="w-full h-48 object-cover">
+                    </a>
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold text-gray-200 mb-2">{{ anuncio.titulo }}</h3>
+                        <p class="text-gray-400 text-sm">
+                            <a href="{% url 'anuncio:detalhes' anuncio.pk %}" class="text-blue-500 hover:underline">
+                                Ver mais detalhes
+                            </a>
+                        </p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-gray-100 py-12">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-semibold text-gray-800 mb-6">Ver Novamente</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                 {% for anuncio in request.user.anuncios_vistos.all %}
+                <div class="bg-white shadow-md rounded-lg overflow-hidden hover:scale-105">
+                    <a href="{% url 'anuncio:detalhes' anuncio.pk %}">
+                        <img src="{{ anuncio.thumb.url }}" alt="{{ anuncio.titulo }}" class="w-full h-48 object-cover">
+                    </a>
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold text-gray-800 hover:text-blue-500">{{ anuncio.titulo }}</h3>
+                        <p class="text-gray-600 text-sm mt-2">
+                            <a href="{% url 'anuncio:detalhes' anuncio.pk %}" class="text-blue-500 hover:underline">
+                                Ver mais detalhes
+                            </a>
+                        </p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <!--
+    <section class='bg-primary_black flex justify-center py-10'>
+        <div class="p-8 w-10/12 relative">
+            <h2 class="text-gray-200 text-2xl font-medium">
+                Novo
+            </h2>
+            <div class="wrapper">
+                <section id="section1" class="flex flex-nowrap items-center justify-center space-x-8">
+                    <a href="#section2" class="arrow__btn text-6xl page">‹</a>
+                    {% for anuncio in lista_anuncios_recentes %}
+                    {% if forloop.counter < 5 %}
+                    <div class="relative h-64 w-1/4 m-4">
+                        <a href="{% url 'anuncio:detalhes' anuncio.pk %}">
+
+                            <img src="{{ anuncio.thumb.url }}" class="rounded-md w-full h-full object-cover">
+
+
+                            <div class="absolute inset-0 flex items-end justify-center bg-gradient-to-t from-black/70 via-black/20 to-transparent rounded-md">
+                                <p class="text-white text-lg font-semibold p-2">{{ anuncio.titulo }}</p>
+                            </div>
+                        </a>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    <a href="#section2" class="arrow__btn text-6xl">›</a>
+                </section>
+                {% if lista_anuncios_recentes|length > 4 %}
+                <section id="section2" class="flex flex-nowrap items-center justify-center">
+                    <a href="#section1" class="arrow__btn text-6xl">‹</a>
+                    {% for anuncio in lista_anuncios_recentes %}
+                    {% if forloop.counter > 4 %}
+                    <div class="relative h-64 w-1/4 m-4">
+                        <a href="{% url 'anuncio:detalhes' anuncio.pk %}">
+
+                            <img src="{{ anuncio.thumb.url }}" class="rounded-md w-full h-full object-cover">
+
+
+                            <div class="absolute inset-0 flex items-end justify-center bg-gradient-to-t from-black/70 via-black/20 to-transparent rounded-md">
+                                <p class="text-white text-lg font-semibold p-2">{{ anuncio.titulo }}</p>
+                            </div>
+                        </a>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    <a href="#section1" class="arrow__btn text-6xl">›</a>
+                </section>
+                {% endif %}
+            </div>
+
+
+        </div>
+    </section>
+
+-->
+
+</main>
+
+<footer class="relative py-12 text-black overflow-hidden">
+    <!-- Fundo animado de arco-íris -->
+    <div class="absolute inset-0 bg-gradient-to-r from-red-500 via-yellow-500 to-blue-500 bg-animate"></div>
+    <!-- Conteúdo do footer -->
+    <div class="relative z-10 container mx-auto">
+        <ul class="flex justify-between items-center">
+            <li>&copy; 2024 ReCriarValor</li>
+            <li class="flex items-center">
+
+                <a href="https://www.python.org/" class="flex items-center mx-2">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" class="h-6 w-6">
+                    <span class="ml-1">Python</span>
+                </a>
+                <a href="https://www.djangoproject.com/" class="flex items-center mx-2">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg" alt="Django" class="h-6 w-6">
+                    <span class="ml-1">Django</span>
+                </a>
+                <a href="https://www.sqlite.org/" class="flex items-center mx-2">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original.svg" alt="SQLite" class="h-6 w-6">
+                    <span class="ml-1">SQLite</span>
+                </a>
+                <a href="https://tailwindcss.com/" class="flex items-center mx-2">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" alt="Tailwind CSS" class="h-6 w-6">
+                    <span class="ml-1">Tailwind CSS</span>
+                </a>
+                <a href="https://getbootstrap.com/" class="flex items-center mx-2">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-plain.svg" alt="Bootstrap" class="h-6 w-6">
+                    <span class="ml-1">Bootstrap</span>
+                </a>
+                <a href="https://developer.mozilla.org/en-US/docs/Web/CSS" class="flex items-center mx-2">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3" class="h-6 w-6">
+                    <span class="ml-1">CSS3</span>
+                </a>
+
+            </li>
+        </ul>
+    </div>
+</footer>
+
+
+{% endblock %}

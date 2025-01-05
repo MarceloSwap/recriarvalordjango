@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+Pesquisa
+{% endblock %}
+
+{% block content %}
+
+<main class="bg-primary_black min-h-screen w-full">
+    <!-- Header da página -->
+    <section class="bg-gray-900 text-white py-16">
+        <div class="container mx-auto text-center">
+            <h1 class="text-4xl font-bold">Resultados da Pesquisa</h1>
+            <p class="text-gray-400 mt-2">Explore os anúncios encontrados com base nos seus critérios.</p>
+        </div>
+    </section>
+
+    <!-- Resultados da busca -->
+    <section class="py-12">
+        <div class="container mx-auto px-4">
+            {% if object_list %}
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {% for anuncio in object_list %}
+                        <!-- Card de anúncio -->
+                        <div class="bg-gray-800 rounded-lg shadow-lg overflow-hidden hover:scale-105 transition-transform duration-300">
+                            <a href="{% url 'anuncio:detalhes' anuncio.pk %}">
+                                <div class="relative">
+                                    <img src="{{ anuncio.thumb.url }}" alt="{{ anuncio.titulo }}" class="w-full h-48 object-cover">
+                                    <div class="absolute bottom-0 bg-gradient-to-t from-black via-transparent to-transparent text-white px-4 py-2">
+                                        <h3 class="font-semibold text-lg">{{ anuncio.titulo }}</h3>
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="p-4">
+                                <p class="text-gray-400 text-sm">
+                                    {{ anuncio.descricao|slice:":100" }}...
+                                </p>
+                                <p class="text-gray-500 mt-2 text-sm">
+                                    Localização: {{ anuncio.localizacao }}
+                                </p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="text-center text-gray-400 py-10">
+                    <p>Nenhum anúncio encontrado para os critérios de busca.</p>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+</main>
+<footer class="relative py-12 text-black overflow-hidden">
+    <!-- Fundo animado de arco-íris -->
+    <div class="absolute inset-0 bg-gradient-to-r from-red-500 via-yellow-500 to-blue-500 bg-animate"></div>
+    <!-- Conteúdo do footer -->
+    <div class="relative z-10 container mx-auto">
+        <ul class="flex justify-between items-center">
+            <li>&copy; 2024 ReCriarValor</li>
+            <li class="flex items-center">
+
+                <a href="https://www.python.org/" class="flex items-center mx-2">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" class="h-6 w-6">
+                    <span class="ml-1">Python</span>
+                </a>
+                <a href="https://www.djangoproject.com/" class="flex items-center mx-2">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg" alt="Django" class="h-6 w-6">
+                    <span class="ml-1">Django</span>
+                </a>
+                <a href="https://www.sqlite.org/" class="flex items-center mx-2">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original.svg" alt="SQLite" class="h-6 w-6">
+                    <span class="ml-1">SQLite</span>
+                </a>
+                <a href="https://tailwindcss.com/" class="flex items-center mx-2">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" alt="Tailwind CSS" class="h-6 w-6">
+                    <span class="ml-1">Tailwind CSS</span>
+                </a>
+                <a href="https://getbootstrap.com/" class="flex items-center mx-2">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-plain.svg" alt="Bootstrap" class="h-6 w-6">
+                    <span class="ml-1">Bootstrap</span>
+                </a>
+                <a href="https://developer.mozilla.org/en-US/docs/Web/CSS" class="flex items-center mx-2">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3" class="h-6 w-6">
+                    <span class="ml-1">CSS3</span>
+                </a>
+
+            </li>
+        </ul>
+    </div>
+</footer>
+
+{% endblock %}
