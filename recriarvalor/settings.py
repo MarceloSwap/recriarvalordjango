@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 TOKEN_CSRF = os.getenv('TOKEN_CSRF')
 if TOKEN_CSRF:
     SECRET_KEY = TOKEN_CSRF
-    CSRF_TRUSTED_ORIGINS = ["https://recriarvalordjango-production.up.railway.app/"]
+    CSRF_TRUSTED_ORIGINS = ["https://recriarvalordjango-production.up.railway.app"]
 else:
     SECRET_KEY = 'django-insecure-ne1q#mlau!5&u^_ww%yrt2r!a!7nqy+zgwn8bf-ro%1c=&=tr%'
 
@@ -32,7 +32,7 @@ else:
 # mudar pra False o Debug pra colocar em produção
 DEBUG = True
 
-ALLOWED_HOSTS = ["https://recriarvalordjango-production.up.railway.app/", "localhost", "127.0.0.1"]
+ALLOWED_HOSTS = ["recriarvalordjango-production.up.railway.app", "localhost", "127.0.0.1"]
 
 
 # Application definition
