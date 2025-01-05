@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-ne1q#mlau!5&u^_ww%yrt2r!a!7nqy+zgwn8bf-ro%1c=&=tr%
 # mudar pra False o Debug pra colocar em produção
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["recriarvalordjango-production.up.railway.app", "localhost", "127.0.0.1"]
 
 
 # Application definition
