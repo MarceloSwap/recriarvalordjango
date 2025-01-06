@@ -4,13 +4,16 @@
     <div class="w-6/12">
         <a href="/">
             <img class="2/12" src="{% static 'images/logo-reciclagem.png' %}">
+
         </a>
+
     </div>
 
     <!--    Formulário de pesquisa, botões de login e editar perfil -->
 
-    <div class="w-6/12 flex flex-nowrap justify-end">
+    <div class="w-8/12 flex flex-nowrap justify-end">
         {% if user.is_authenticated %}
+          <h3 class="mr-4 py-2">{{ user.username }}!</h3>
         <div class="mr-2">
             <form method="get" action="{% url 'anuncio:pesquisaanuncio' %}">
                 <input type="text" class="py-1 px-2 rounded-md text-black" name="query" value="{{ request.GET.query }}"
@@ -37,7 +40,7 @@
         </div>
 
         {% if user.is_authenticated %}
-        <div class="mr-2">
+        <div class="mr-2 flex-none">
             <a href="{% url 'anuncio:editarperfil' user.pk %}">
                 <button class="bg-red-600 text-white py-1 px-3 rounded-md">
                     Editar Perfil
