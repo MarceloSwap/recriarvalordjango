@@ -13,7 +13,7 @@
 
     <div class="w-8/12 flex flex-nowrap justify-end">
         {% if user.is_authenticated %}
-          <h3 class="mr-4 py-2">{{ user.username }}!</h3>
+          <h3 class="mr-4 py-2">Olá {{ user.username }}!</h3>
         <div class="mr-2">
             <form method="get" action="{% url 'anuncio:pesquisaanuncio' %}">
                 <input type="text" class="py-1 px-2 rounded-md text-black" name="query" value="{{ request.GET.query }}"
