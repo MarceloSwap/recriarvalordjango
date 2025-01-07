@@ -16,7 +16,7 @@ class AnuncioConfig(AppConfig):
                 usuarios = Usuario.objects.filter(email=email)
                 if not usuarios.exists():
                     Usuario.objects.create_superuser(
-                        username="admin",
+                        username="Marcelo",
                         email=email,
                         password=senha,
                         is_active=True,
